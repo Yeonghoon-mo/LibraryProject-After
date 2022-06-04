@@ -72,5 +72,7 @@
 
 ## 5. Entity Relationship Diagram (ERD)
 -------------------------------
+- ERD 다이어그램 모델링 툴은 ERDCloud를 사용하였습니다.
+
 ![ERD](https://user-images.githubusercontent.com/54883318/171990402-5519d893-e44a-4687-8c5e-ea3240cfe3f3.PNG)
 
