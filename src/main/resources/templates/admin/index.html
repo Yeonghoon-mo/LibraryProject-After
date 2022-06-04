@@ -16,7 +16,7 @@
     <div id="login_box">
         <div class="login_con">
             <div class="login_tit">
-                <h2>Library Project LOGIN</h2>
+                <h2>Library Project</h2>
                 <p>LOG<i>IN</i></p>
             </div>
             <!-- 로그인 form -->
@@ -47,6 +47,10 @@
 
         window.onload = () => {
             addEnterLoginEvent();
+        }
+
+        function findById(id) {
+            return document.getElementById(id);
         }
 
         // 유효성 검사
