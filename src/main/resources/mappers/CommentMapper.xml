@@ -11,9 +11,6 @@
         <result column="profile_image" property="profileImage" />
         <result column="content" property="content" />
         <result column="created_date" property="createdDate" />
-        <result column="like_cnt" property="likeCnt" />
-        <result column="bad_cnt" property="badCnt" />
-        <result column="like_type" property="likeType" />
     </resultMap>
 
     <select id="findAllComments" parameterType="com.library.domain.comment.CommentSearch" resultMap="CommentResultMap">
@@ -24,13 +21,9 @@
              , M.profile_image -- 회원 프로필 사진
              , C.content -- 댓글 내용
              , C.created_date -- 댓글 생성일
-             , COUNT(CASE WHEN CL.like_type = 1 THEN 1 END) AS like_cnt -- 특정 댓글의 좋아요 수
-             , COUNT(CASE WHEN CL.like_type = 0 THEN 1 END) AS bad_cnt -- 특정 댓글의 싫어요 수
-             , MAX(CASE WHEN CL.member_id = #{memberId}  THEN CL.like_type END) AS like_type -- 로그인한 회원의 좋아요/싫어요 타입
         FROM
             tb_comment AS C -- 댓글
             INNER JOIN tb_member AS M ON C.member_id = M.id -- 회원
-            LEFT OUTER JOIN tb_comment_like AS CL ON C.id = CL.comment_id -- 댓글
         WHERE
             C.delete_yn = 'N'
             AND C.board_id = #{boardId}

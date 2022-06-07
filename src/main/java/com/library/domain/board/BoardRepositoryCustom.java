@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface BoardRepositoryCustom {
 
-    /** Pagination */
+    // Pagination
     Page<Board> findAll(BoardInquirySearchCondition condition, Pageable pageable);
 
-    /** 인덱스 리스트 */
+    // 회원페이지 인덱스 리스트
     List<Board> findByBoardIndexList(BoardInquirySearchCondition condition);
 
 }

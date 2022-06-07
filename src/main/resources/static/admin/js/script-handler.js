@@ -106,7 +106,7 @@ function logoutAdmin() {
             if(!response.ok){
                 throw new Error("Request failed...");
             }
-            location.assign("/admin");
+            location.assign("/manager");
         }).catch(error => {
         console.log(error);
     });

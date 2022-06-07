@@ -95,7 +95,7 @@
                 if(!response.ok){
                     throw new Error("아이디 또는 비밀번호가 틀렸습니다.");
                 }
-                location.assign("/admin/manager?mnId=1");
+                location.assign("/manager/manager?mnId=1");
             }).catch(error => {
                 alert(error.message);
             });

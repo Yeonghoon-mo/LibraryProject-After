@@ -12,9 +12,6 @@ public class CommentListResponse {
     private String memberName;
     private String profileImage;
     private String content;
-    private Integer likeType;
-    private int likeCnt;
-    private int badCnt;
     private LocalDateTime createdDate;
 
 }

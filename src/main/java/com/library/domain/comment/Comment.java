@@ -31,13 +31,9 @@ public class Comment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member; // 회원 번호(FK)
-
     private Long parentCommentId; // 부모 댓글 번호
-
     private Integer commentLevel; // 댓글 레벨 ( 0 = 댓글, 1 = 대댓글 )
-
     private String content; // 내용
-
     private YnStatus deleteYn; // 삭제 여부
 
     @Builder

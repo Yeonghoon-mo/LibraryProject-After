@@ -23,10 +23,6 @@ public class MemberResponse {
 
     // 정회원 member 변수
     private String phone;                   // 연락처
-    private String socialPosition;          // 사회적 직함
-    private String education;               // 학력
-    private String career;                  // 경력
-    private String book;                    // 저서
 
     public MemberResponse(Member entity) {
         this.id = entity.getId();
@@ -41,10 +37,6 @@ public class MemberResponse {
 
         if (entity.getType() == MemberType.REGULAR) {
             this.phone = phone;
-            this.socialPosition = socialPosition;
-            this.education = education;
-            this.career = career;
-            this.book = book;
         }
     }
 

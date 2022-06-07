@@ -19,9 +19,9 @@ public class AdminPageController {
 
     // 게시판관리 - 게시글 리스트
     @GetMapping("board-manager-list")
-    public String boardManager(@RequestParam final Integer boardType) {
+    public String boardManager(@RequestParam final String boardType) {
         // boardType 이 0이면 기본, 1이면 썸네일형
-        return (boardType == '0') ? "/admin/board-manager-list" : "/admin/gallery-board-list";
+        return (boardType.equals("0")) ? "/admin/board-manager-list" : "/admin/gallery-board-list";
     }
 
     // 게시판관리 - 공지사항 등록

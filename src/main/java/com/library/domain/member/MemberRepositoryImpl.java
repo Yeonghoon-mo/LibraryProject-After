@@ -38,11 +38,8 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                 member.deleteYn,
                 member.createdDate,
                 member.modifiedDate,
-                regularMember.phone,
-                regularMember.socialPosition,
-                regularMember.education,
-                regularMember.career,
-                regularMember.book);
+                regularMember.phone
+        );
     }
 
     /** 회원 페이징, 검색

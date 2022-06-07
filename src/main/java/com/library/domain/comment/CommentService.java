@@ -54,7 +54,7 @@ public class CommentService {
         return id;
     }
 
-    // 관리자 댓글 삭제
+    // 관리자 페이지 댓글 삭제
     @Transactional
     public Long deleteAdminComment(@PathVariable final Long id) {
         Comment entity = commentRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.COMMENT_NOT_FOUND));

@@ -24,17 +24,12 @@ public class MemberRequest {
 
     // 정회원 member 변수
     private String phone;             // 연락처
-    private String socialPosition;    // 사회적 직함
-    private String education;         // 학력
-    private String career;            // 경력
-    private String book;              // 저서
 
     /** Entity Class 컬럼에 등록되어 있는 데이터를 받는 것이 아닌 직접 선언한 멤버변수 */
     private MultipartFile thumbnail;       // 프로필 이미지
 
     @Builder
-    public MemberRequest(MemberType type, String loginId, String password, String name, String profileImage, YnStatus deleteYn, String authorityYn,
-                         String phone, String socialPosition, String education, String career, String book) {
+    public MemberRequest(MemberType type, String loginId, String password, String name, String profileImage, YnStatus deleteYn, String authorityYn, String phone) {
         // 일반회원
         this.type = type;
         this.loginId = loginId;
@@ -46,10 +41,6 @@ public class MemberRequest {
 
         // 정회원 추가
         this.phone = phone;
-        this.socialPosition = socialPosition;
-        this.education = education;
-        this.career = career;
-        this.book = book;
     }
 
     public void encodingPassword(String encodedPassword) {
@@ -88,10 +79,6 @@ public class MemberRequest {
         return RegularMember.builder()
                 .member(member)
                 .phone(phone)
-                .socialPosition(socialPosition)
-                .education(education)
-                .career(career)
-                .book(book)
                 .build();
     }
 }

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Mail {
 
-    private static final Long MAX_EXPIRE_TIME = 5L;
+    private static final Long MAX_EXPIRE_TIME = 5L; // 5분
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

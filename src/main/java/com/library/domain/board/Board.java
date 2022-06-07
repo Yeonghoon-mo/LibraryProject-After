@@ -44,7 +44,6 @@ public class Board extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private YnStatus deleteYn;              // 삭제 여부
 
-    // 예시
     @OneToMany(mappedBy = "board")
     private List<Like> likes;
 

@@ -6,33 +6,27 @@ function menuOnClassInsert() {
     let html = '';
 
     if(mnId === '1') {
-        html = `<a href="/admin/manager?mnId=1" class="on"><i class="fas fa-info-circle"></i>기준정보관리</a>
+        html = `<a href="/manager/manager?mnId=1" class="on"><i class="fas fa-info-circle"></i>기준정보관리</a>
 						<ul>
-							<li><a href="/admin/manager?mnId=1">관리자 관리</a></li>
+							<li><a href="/manager/manager?mnId=1">관리자 관리</a></li>
 						</ul>`;
         document.getElementById('depth1-menu1').innerHTML = html;
     }
 
     if(mnId === '2') {
-        html = `<a href="/admin/member-list?mnId=2" class="on"><i class="fas fa-user-edit"></i>회원관리</a>
+        html = `<a href="/manager/member-list?mnId=2" class="on"><i class="fas fa-user-edit"></i>회원관리</a>
 						<ul>
-							<li><a href="/admin/member-list?mnId=2">회원관리</a></li>
-							<li><a href="/admin/regular-member-authority?mnId=2">정회원 가입 요청관리</a></li>
+							<li><a href="/manager/member-list?mnId=2">회원관리</a></li>
+							<li><a href="/manager/regular-member-authority?mnId=2">정회원 가입 요청관리</a></li>
 						</ul>`;
         document.getElementById('depth1-menu2').innerHTML = html;
     }
 
     if(mnId === '3') {
-        html = `<a href="/admin/board-manager-list?mnId=3&mainMenuId=1&boardMenuNum=3&boardType=1" class="on"><i class="fas fa-chart-line"></i>게시판관리</a>
+        html = `<a href="/manager/board-manager-list?mnId=3&mainMenuId=1&boardMenuNum=1&boardType=0" class="on"><i class="fas fa-chart-line"></i>게시판관리</a>
 						<ul>
-							<li><a href="/admin/board-manager-list?mainMenuId=1&boardMenuNum=3&mnId=3&boardType=1">소개</a></li>
-							<li><a href="/admin/board-manager-list?mainMenuId=2&boardMenuNum=4&mnId=3&boardType=0">성(性)</a></li>
-							<li><a href="/admin/board-manager-list?mainMenuId=3&boardMenuNum=8&mnId=3&boardType=0">생명</a></li>
-							<li><a href="/admin/board-manager-list?mainMenuId=4&boardMenuNum=12&mnId=3&boardType=0">관련법률</a></li>
-							<li><a href="/admin/board-manager-list?mainMenuId=5&boardMenuNum=16&mnId=3&boardType=0">기타자료</a></li>
-							<li><a href="/admin/board-manager-list?mainMenuId=6&boardMenuNum=20&mnId=3&boardType=1">자료유형</a></li>
-							<li><a href="/admin/board-manager-list?mainMenuId=7&boardMenuNum=24&mnId=3&boardType=0">관련기사</a></li>
-							<li><a href="/admin/board-manager-list?mainMenuId=8&boardMenuNum=28&mnId=3&boardType=0">게시판</a></li>
+							<li><a href="/manager/board-manager-list?mainMenuId=1&boardMenuNum=1&mnId=3&boardType=0">게시판</a></li>
+							<li><a href="/manager/board-manager-list?mainMenuId=2&boardMenuNum=5&mnId=3&boardType=1">썸네일형 게시판</a></li>
 						</ul>`;
         document.getElementById('depth1-menu3').innerHTML = html;
     }
@@ -57,7 +51,7 @@ async function subMenuList() {
         // 1차 대메뉴
         json.forEach((obj) => {
             if(mainMenuId === obj.id) {
-                subTitleHtml += `${obj.name} >`;
+                subTitleHtml += `${obj.name}  / `;
             }
         });
 
@@ -69,19 +63,20 @@ async function subMenuList() {
         // 서브메뉴
         json.forEach((obj) => {
             const on = (obj.id === boardMenuNum) ? 'class="on"' : '';
-            if(obj.mainMenuId.id === mainMenuId && obj.id !== 1 && obj.id !== 2) {
-                html += `<li><a href="/admin/board-manager-list?mainMenuId=${obj.mainMenuId.id}&boardMenuNum=${obj.id}&mnId=3&boardType=${boardType}"${on}>${obj.name}</a></li>`;
-                document.getElementById('menulink').innerHTML = html;
+            if(obj.mainMenuId.id === mainMenuId) {
+                html += `<li><a href="/manager/board-manager-list?mainMenuId=${obj.mainMenuId.id}&boardMenuNum=${obj.id}&mnId=3&boardType=${boardType}"${on}>${obj.name}</a></li>`;
             }
         });
+        document.getElementById('menulink').innerHTML = html;
 
         // 2차 소메뉴
         json.forEach((obj) => {
             if(obj.id === boardMenuNum) {
                 subTitleHtml += ` ${obj.name}`;
-                document.getElementById('subtitle1').innerHTML= subTitleHtml;
             }
         });
+
+        document.getElementById('subtitle1').innerHTML= subTitleHtml;
     });
 }
 

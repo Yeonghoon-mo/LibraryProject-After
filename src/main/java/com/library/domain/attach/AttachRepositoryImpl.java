@@ -38,18 +38,6 @@ public class AttachRepositoryImpl implements AttachRepositoryCustom{
                 .execute();
     }
 
-
-    // 파일 삭제취소
-    @Override
-    public void undeleteAttach(List<Long> fileId) {
-        queryFactory
-                .update(attach)
-                .set(attach.deleteYn, YnStatus.N)
-                .where(attach.id.in(fileId))
-                .execute();
-
-    }
-
     // 파일 개수 조회
     @Override
     public Long selectAttachTotalCount(Long id) {
