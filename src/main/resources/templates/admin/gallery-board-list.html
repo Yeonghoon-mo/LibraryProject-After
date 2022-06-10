@@ -88,7 +88,6 @@
 			let boardMenuNum = new URLSearchParams(location.search).get('boardMenuNum');
 			let mainMenuId = new URLSearchParams(location.search).get('mainMenuId');
 			let boardType = new URLSearchParams(location.search).get('boardType');
-			console.log(boardMenuNum);
 
 			const pageParam = Number(new URLSearchParams(location.search).get('page'));
 			page = (page) ? page : ((pageParam) ? pageParam : 1);
@@ -117,7 +116,7 @@
 				let html = '';
 				response.content.forEach((obj) => {
 					const viewUri = `/manager/gallery-board-view/${obj.id}` + '?' + queryString;
-					const imageSrc = (obj.repImage) ? `/api/image-files?savedFilename=${obj.saveNameImage}` : '/images/no_img.gif';
+					const imageSrc = (obj.repImage) ? `/api/image-files?savedFilename=${obj.saveNameImage}` : '/admin/images/no_img.gif';
 					if(obj.noticeYn === 'N'){
 						html += `   <li>
 										<a href="${viewUri}">

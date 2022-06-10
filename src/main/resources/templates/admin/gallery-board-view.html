@@ -79,8 +79,6 @@
         // 게시글 조회
         function findBoard() {
             const id = [[ ${id} ]];
-            let galleryBoardBodyHtml = '';
-            let boardMenuNum = new URLSearchParams(location.search).get('boardMenuNum');
 
             fetch(`/api/boards/${id}`).then(response => {
                 if (!response.ok) {
@@ -88,51 +86,18 @@
                 }
                 return response.json();
             }).then(json => {
-                // 정회원 소개 HTML 렌더링 부분
-                if(boardMenuNum === '3') {
-                    galleryBoardBodyHtml += `
-                        <tr>
-                            <th scope="row">게시글번호</th>
-                            <td id="id" name="id"></td>
-                            <th scope="row">작성자</th>
-                            <td id="writer" name="writer"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">회원 이름</th>
-                            <td colspan="3" id="name" name="name"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">등록일</th>
-                            <td id="createdDate" name="createdDate"></td>
-                            <th scope="row">정회원 이미지 파일</th>
-                            <td colspan="5" id="repImageDown" name="repImageDown"></td>
-                        </tr>`;
-                    findById('galleryBoardBody').innerHTML = galleryBoardBodyHtml;
+                Object.keys(json).forEach(key => {
+                    const elem = findById(key);
+                    if (elem) {
+                        elem.innerText = json[key];
+                    }
 
+                    const boardKeyword = (json.boardKeyword === null || json.boardKeyword === '') ? '등록된 키워드가 없습니다.' : `<p>${json.boardKeyword}</p>`
+                    const repImageDownload = ( json.repImage === "" || json.repImage === null ) ? `<td colspan="5"> 업로드된 이미지가 없습니다.</td>` : `<a href="/api/file-download?originalFilename=${json.repImage}&savedFilename=${json.saveNameImage}"><td colspan="5"></td>${json.repImage}</a>`;
                     json.createdDate = dayjs(json.createdDate).format('YYYY-MM-DD HH:mm:ss');
-                    Object.keys(json).forEach(key => {
-                        const elem = findById(key);
-                        if (elem) {
-                            elem.innerText = json[key];
-                        }
-                    });
-                    findById('repImageDown').innerHTML = (( !json.repImage ) ?  `<td colspan="5"> 업로드된 이미지가 없습니다.</td>` : `<a href="/api/file-download?originalFilename=${json.repImage}&savedFilename=${json.saveNameImage}"><td colspan="5"></td>${json.repImage}</a>`);
-
-                } else {
-                    Object.keys(json).forEach(key => {
-                        const elem = findById(key);
-                        if (elem) {
-                            elem.innerText = json[key];
-                        }
-
-                        const boardKeyword = (json.boardKeyword === null || json.boardKeyword === '') ? '등록된 키워드가 없습니다.' : `<p>${json.boardKeyword}</p>`
-                        const repImageDownload = ( json.repImage === "" || json.repImage === null ) ?  `<td colspan="5"> 업로드된 이미지가 없습니다.</td>` : `<a href="/board-image-download?id=${json.id}"><td colspan="5"></td>${json.saveNameImage}</a>`;
-
-                        json.createdDate = dayjs(json.createdDate).format('YYYY-MM-DD HH:mm:ss');
-                        findById('repImageDown').innerHTML = repImageDownload;
-                        findById('boardKeyword').innerHTML = boardKeyword;
-                    });
-                }
+                    findById('repImageDown').innerHTML = repImageDownload;
+                    findById('boardKeyword').innerHTML = boardKeyword;
+                });
             }).catch(error => {
                 alert(error.message);
             });
@@ -172,11 +137,6 @@
 
         // 댓글 리스트 조회
         async function findComments() {
-            let boardMenuNum = new URLSearchParams(location.search).get('boardMenuNum');
-            if(boardMenuNum === '3') {
-                return false;
-            }
-
             const boardId = [[ ${id} ]]
             const params = {
                 boardId: boardId
@@ -246,8 +206,7 @@
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
-                },
-
+                }
             }).then(response => {
                 if (!response.ok) {
                     throw new Error('권한이 없습니다.');
@@ -260,27 +219,23 @@
             });
         }
 
-        /** 파일 리스트 조회 ( 정회원 게시판을 제외한 다른 썸네일형 게시판 파일들 ) */
+        // 파일 리스트 조회
         async function printFileList() {
-
-            let boardMenuNum = new URLSearchParams(location.search).get('boardMenuNum');
             const id = [[ ${id} ]];
             let fileListHtml = '';
 
             await fetch(`/api/boards/${id}/files`).then(response => {
                 return response.json();
             }).then(fileList => {
-                if(boardMenuNum !== '3') {
-                    if (fileList.length < 1) {
-                        fileListHtml += `<a>업로드된 파일이 없습니다.</a>`;
-                    } else {
-                        for (let i = 0; i < fileList.length; i++) {
-                            let fileLists = fileList[i];
-                            fileListHtml += `<a href="/download-files?id=${fileLists.id}"<td colspan="5" id="id">${fileLists.originalName}</td></a><br>`;
-                        }
+                if (fileList.length < 1) {
+                    fileListHtml += `<a>업로드된 파일이 없습니다.</a>`;
+                } else {
+                    for (let i = 0; i < fileList.length; i++) {
+                        let fileLists = fileList[i];
+                        fileListHtml += `<a href="/api/file-download?originalFilename=${fileLists.originalName}&savedFilename=${fileLists.saveName}"<td colspan="5" id="id">${fileLists.originalName}</td></a><br>`;
                     }
-                    findById('fileList').innerHTML = fileListHtml;
                 }
+                findById('fileList').innerHTML = fileListHtml;
             }).catch(error => {
                 console.log(error);
             });

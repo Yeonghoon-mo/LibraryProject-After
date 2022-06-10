@@ -228,7 +228,6 @@
             }
 
             fileSeq.up();
-
             const fileHtml = `
                 <li data-name="file_input" style="margin-top: 15px;">
                     <div class="file_input">
@@ -248,7 +247,6 @@
 
         // 추가등록 파일 삭제
         function removeFile(elem, fileId) {
-
             if (fileId) {
                 elem.setAttribute('onclick', 'removeFile(this);');
                 document.querySelectorAll('input[name="attachFiles"]')[0].setAttribute('onchange', 'changeFileName(this)');
@@ -256,7 +254,6 @@
             }
 
             const li = elem.closest('li')
-
             if (elem.id) {
                 li.querySelectorAll('input').forEach(e => e.value = '');
                 return false;

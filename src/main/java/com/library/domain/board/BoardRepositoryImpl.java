@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.library.domain.board.QBoard.board;
+import static com.library.domain.like.QLike.like;
 
 public class BoardRepositoryImpl implements BoardRepositoryCustom {
 
@@ -90,14 +91,6 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
             return board.boardMenuNum.id.notIn(28, 29, 30);
         }
         return board.boardMenuNum.id.eq(boardMenuNum);
-    }
-
-    /** 공지 여부 */
-    private BooleanExpression noticeType(String noticeYn) {
-        if(noticeYn == null) {
-            return null;
-        }
-        return board.noticeYn.eq(noticeYn);
     }
 
     /** 정렬 기준 */

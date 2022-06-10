@@ -22,7 +22,7 @@
                             <tbody id="galleryBoardBody" name="galleryBoardBody">
                             <tr>
                                 <th scope="row">작성자<span class="es">필수입력</span></th>
-                                <td colspan="3"><input type="text" id="loginId" name="loginId" value="" readonly/></td>
+                                <td colspan="3"><input type="text" id="writer" name="writer" readonly/></td>
                             </tr>
                             <tr>
                                 <th scope="row">제목<span class="es">필수입력</span></th>
@@ -49,15 +49,14 @@
                                     <ul class="filegroup" id="files" name="files">
                                         <li data-name="file_input">
                                             <div class="file_input">
-                                                <input type="hidden" id="fileId" name="fileId" value="0">
-                                                <input type="text" title="첨부파일" id="fileList" name="fileList" placeholder="파일 찾기"  readonly />
+                                                <input type="text" placeholder="파일 찾기" readonly title="첨부파일" />
                                                 <label for="file_0"> 첨부파일
-                                                    <input type="file" id="file_0" name="files" onchange="changeFileName(this)" />
+                                                    <input type="file" id="file_0" name="attachFiles" onchange="changeFileName(this)" />
                                                 </label>
                                             </div>
                                             <div class="file_btns">
-                                                <button onclick="addFile()" type="button" class="btns primary addfile">파일 추가등록</button>
-                                                <button onclick="removeFile(this)" type="button" class="btns primary addfile">파일삭제</button>
+                                                <button class="btns primary addfile" onclick="addFile()" type="button">파일 추가등록</button>
+                                                <button class="btns primary addfile" id="firstFileRemoveBtn" onclick="removeFile(this)" type="button">파일삭제</button>
                                             </div>
                                         </li>
                                     </ul>
@@ -88,15 +87,38 @@
             printFileList();
         }
 
-        /**[- 파일 인덱스 처리용 전역 변수 -]*/
-        let fileIdx = 0;
+        // 유효성 검사
+        function isValid() {
+            const form = findById('form');
 
-        /** 갤러리 게시판 수정 (관리자) */
-        function save() {
-            if (!isValid()) {
+            if (!form.title.value.trim()) {
+                alert('제목을 입력해 주세요.');
+                form.title.value = '';
+                form.title.focus();
                 return false;
             }
 
+            if (!form.content.value.trim()) {
+                alert('내용을 입력해 주세요.');
+                form.content.value = '';
+                form.content.focus();
+                return false;
+            }
+
+            if (!form.writer.value.trim()) {
+                alert('작성자를 입력해 주세요 ex)관리자');
+                form.writer.value = '';
+                form.writer.focus();
+                return false;
+            }
+            return true;
+        }
+
+        // 썸네일 게시판 수정 (With. 관리자)
+        function save() {
+            if(!isValid) {
+                return false;
+            }
             let id = [[ ${id} ]];
             let boardMenuNum = new URLSearchParams(location.search).get('boardMenuNum');
             const formData = new FormData(findById('form'));
@@ -105,6 +127,7 @@
             formData.append('boardMenuNum', boardMenuNum);
             formData.append('noticeYn', 'N');
             formData.append('deleteYn', 'N');
+            formData.append('removeFileIds', removeFileIds.getAll());
 
             callApi(uri, 'POST', formData, true).then(response => {
                 alert("정상적으로 처리되었습니다.");
@@ -134,69 +157,58 @@
             });
         }
 
-        /** 기존 파일 정보 Response*/
+        // 기존 파일 정보 Response
         function printFileList() {
             const id = [[ ${id} ]];
-            let fileListHtml = '';
-
-            if(!id) {
+            if( !id ) {
                 return false;
             }
+
             fetch(`/api/boards/${id}/files`).then(response => {
                 if(!response.ok) {
                     throw new Error("Request Error...");
                 }
                 return response.json();
             }).then(fileList => {
+                let fileListHtml = '';
                 for(let i = 0; i < fileList.length; i++) {
                     let fileLists = fileList[i];
                     let fileAddBtn = (i < 1) ? '<button onclick="addFile()" type="button" class="btns primary addfile">파일 추가등록</button>' : '';
                     fileListHtml += `
-						<li data-name="file_input">
+                        <li data-name="file_input">
                             <div class="file_input">
-                                <input type="hidden" id="fileId" name="fileId" value="${fileLists.id}">
                                 <input type="text" title="첨부파일" id="fileList" name="fileList" placeholder="파일 찾기" value="${fileLists.originalName}"  readonly />
-                                <label for="file_${i}"> 첨부파일
-                                    <input type="file" id="file_${i}" name="files" onchange="changeFileName(this)" value="${fileLists.id}" />
+                                <label for="file_${i+1}"> 첨부파일
+                                    <input type="file" id="file_${i+1}" name="attachFiles" onchange="changeFileName(this, ${fileLists.id})" />
                                 </label>
                             </div>
                             <div class="file_btns">
                                 ${fileAddBtn}
-                                <button onclick="removeFile(this)" type="button" class="btns primary addfile">파일삭제</button>
+                                <button onclick="removeFile(this, ${fileLists.id})" type="button" class="btns primary addfile">파일삭제</button>
                             </div>
                         </li>
-					`;
-
+                    `;
+                    fileSeq.up();
                     findById('files').innerHTML = fileListHtml;
-                    fileIdx += fileList.length;
+                    document.querySelector('#files > li:first-child > .file_btns > button:last-child').setAttribute('id', 'firstFileRemoveBtn');
                 }
             });
         }
 
-        /** 파일 추가등록 */
+        // 첨부파일 추가 등록 버튼
         function addFile() {
-
-            // 정회원 소개 파일 추가등록 방지
-            let boardMenuNum = new URLSearchParams(location.search).get('boardMenuNum');
-            if(boardMenuNum === '3') {
-                const fileDivs = document.querySelectorAll('li[data-name="file_input"]');
-                if (fileDivs.length > 0) {
-                    alert('정회원 소개는 파일 추가등록이 불가능합니다.')
-                }
+            if (document.querySelectorAll('li[data-name="file_input"]').length > 9) {
+                alert('파일은 최대 10개까지 업로드 할 수 있습니다.')
                 return false;
-            } else {
-                const fileDivs = document.querySelectorAll('li[data-name="file_input"]');
-                if (fileDivs.length > 9) {
-                    alert('파일은 최대 10개까지 업로드 할 수 있습니다.')
-                    return false;
-                }
-                fileIdx++;
-                const fileHtml = `
-                <li data-name="file_input">
+            }
+
+            fileSeq.up();
+            const fileHtml = `
+                <li data-name="file_input" style="margin-top: 15px;">
                     <div class="file_input">
-                        <input type="text" title="첨부파일" id="fileList" name="fileList" placeholder="파일 찾기"  readonly />
-                        <label for="file_${fileIdx}"> 첨부파일
-                            <input type="file" id="file_${fileIdx}" name="files" onchange="changeFileName(this)" />
+                        <input type="text" title="첨부파일" placeholder="파일 찾기"  readonly />
+                        <label for="file_${fileSeq.get()}"> 첨부파일
+                            <input type="file" id="file_${fileSeq.get()}" name="attachFiles" onchange="changeFileName(this)" />
                         </label>
                     </div>
                     <div class="file_btns">
@@ -205,44 +217,26 @@
                 </li>
 			`;
 
-                $('#files').append(fileHtml);
-            }
+            $('#files').append(fileHtml);
         }
 
-        /** 추가등록 파일 삭제 */
-        function removeFile(elem) {
+        // 추가등록 파일 삭제
+        function removeFile(elem, fileId) {
+            if (fileId) {
+                elem.setAttribute('onclick', 'removeFile(this);');
+                document.querySelectorAll('input[name="attachFiles"]')[0].setAttribute('onchange', 'changeFileName(this)');
+                removeFileIds.add(fileId);
+            }
 
-            const prevTag = $(elem).prev().prop('tagName');
-            if (prevTag === 'BUTTON') {
-                const file = $(elem).prevAll('input[type="file"]');
-                const filename = $(elem).prevAll('input[type="text"]');
-                file.val('');
-                filename.val('찾아보기');
-                const target = $(elem).parents('li[data-name="file_input"]');
-                target.remove();
-
-                let html = `
-                <li data-name="file_input">
-                    <div class="file_input">
-                        <input type="text" title="첨부파일" id="fileList" name="fileList" placeholder="파일 찾기"  readonly />
-                        <label for="file_0"> 첨부파일
-                            <input type="file" id="file_0" name="files" onchange="changeFileName(this)" />
-                        </label>
-                    </div>
-                    <div class="file_btns">
-                        <button onclick="addFile()" type="button" class="btns primary addfile">파일 추가등록</button>
-                        <button onclick="removeFile(this)" type="button" class="btns primary addfile">파일삭제</button>
-                    </div>
-                </li>
-                `;
-
-                $('#files').prepend(html)
+            const li = elem.closest('li')
+            if (elem.id) {
+                li.querySelectorAll('input').forEach(e => e.value = '');
                 return false;
             }
 
-            const target = $(elem).parents('li[data-name="file_input"]');
-            target.remove();
+            li.remove();
         }
+
 
         /** 목록 돌아가기 (이전페이지 유지) */
         function goList(){

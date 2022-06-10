@@ -120,7 +120,7 @@
       getJson('/api/boards', params).then(response => {
         if (!response.content.length) {
           if (boardMenuNum === '1') {
-            findById('fr').innerHTML = `<a href="/manager/board-manager-write${location.search}" class=\"btns btn_st1 btn_mid\">공지사항 작성</a>`;
+            findById('fr').innerHTML = `<a href="/manager/board-manager-write${location.search}" class="btns btn_st1 btn_mid">공지사항 작성</a>`;
           }
           findById('list').innerHTML = '<td colspan="10">등록된 게시글이 없습니다.</td>';
           removePages();
@@ -129,8 +129,10 @@
         let html = '';
         let noticeHeadHtml = '';
         let num = response.totalElements - ((params.page) * params.size);
+
         // 공지사항 작성일 경우 사용 여부 등록, 미등록 표시를 위한 변수
         const noticeYn = { Y : '<span class="btns btn_bdr1 btn_xs btnW40">등록</span>', N : '<span class="btns btn_bdr2 btn_xs btnW40">미등록</span>'};
+
         if(boardMenuNum === '1') {
           noticeHeadHtml = `<th scope="col">No</th>
                             <th scope="col">제목</th>

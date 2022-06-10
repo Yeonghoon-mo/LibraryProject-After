@@ -44,10 +44,6 @@ public class Board extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private YnStatus deleteYn;              // 삭제 여부
 
-    @OneToMany(mappedBy = "board")
-    private List<Like> likes;
-
-
     @Builder
     public Board(Member member, SubMenu boardMenuNum, String title, String content, String writer, int hits, String repImage, String saveNameImage, String boardKeyword,
                  String noticeYn, YnStatus deleteYn) {

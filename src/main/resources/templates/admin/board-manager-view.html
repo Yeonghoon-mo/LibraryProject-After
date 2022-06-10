@@ -209,8 +209,9 @@
                     fileListHtml += `<a>업로드된 파일이 없습니다.</a>`;
                 } else {
                     for (let i = 0; i < fileList.length; i++) {
-                        const file = fileList[i];
-                        fileListHtml += `<a href="/api/file-download?originalFilename=${file.originalName}&savedFilename=${file.saveName}"><td colspan="5">${file.originalName}</td></a><br />`;
+                        let fileLists = fileList[i];
+                        console.log(fileLists);
+                        fileListHtml += `<a href="/api/file-download?originalFilename=${fileLists.originalName}&savedFilename=${fileLists.saveName}"<td colspan="5" id="id">${fileLists.originalName}</td></a><br>`;
                     }
                 }
                 findById('fileList').innerHTML = fileListHtml;

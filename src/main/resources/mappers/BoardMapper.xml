@@ -19,7 +19,6 @@
         <result column="created_date"       property="createdDate" />
         <result column="modified_date"      property="modifiedDate" />
         <result column="login_id"           property="loginId" />
-        <result column="name"               property="name" />
         <result column="profile_image"      property="profileImage" />
         <result column="like_cnt"           property="likeCnt" />
         <result column="bad_cnt"            property="badCnt" />
@@ -43,7 +42,6 @@
             , B.created_date
             , B.modified_date
             , M.login_id
-            , M.name
             , M.profile_image
             , COUNT(CASE WHEN L.like_type = 1 THEN 1 END) AS like_cnt
             , COUNT(CASE WHEN L.like_type = 0 THEN 1 END) AS bad_cnt
