@@ -41,7 +41,7 @@
 - TICA
 - lucy xss filter ( Cross Site Scripting 방지 )
 
-## 4. 프로젝트 제작 기간 (2022/04/04 ~ 2022/06/ing)
+## 4. 프로젝트 제작 기간 (2022/04/04 ~ 2022/06/03) 총 9주간 실제 작업기간 : 44일
 -------------------------------
 
 > #### 1주차 (2022/04/04~2022/04/10, 게시판, 게시글 기능 마무리를 목표로!) 
@@ -91,11 +91,12 @@
 - 05/30 Front-end 리팩토링
 > #### 9주차 (2022/05/31 ~ 2022/06/03)
 - 06/02~ 06/03 Back-end 리팩토링
- 
 
-## 5. Entity Relationship Diagram (ERD)
+## 5. Entity Relationship Diagram
 -------------------------------
 - ERD 다이어그램 모델링 툴은 ERDCloud를 사용하였습니다.
 
 ![ERD](https://user-images.githubusercontent.com/54883318/171990402-5519d893-e44a-4687-8c5e-ea3240cfe3f3.PNG)
 
+## 6. Package layer
+-------------------------------
