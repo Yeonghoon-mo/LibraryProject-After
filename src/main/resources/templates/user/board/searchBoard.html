@@ -100,7 +100,7 @@
                         `<div class="thumb_wrap" id="boardTypeHtml" name="boardTypeHtml">
 								<p><span><img src="${imageSrc}" alt="대표 이미지" /></span></p>
 							</div>`;
-                    const viewUri = `/board/view/${obj.id}?mainMenuNum=${obj.mainMenuNum.id}&subMenuNum=${obj.boardMenuNum.id}&search=on`;
+                    const viewUri = `/board/view/${obj.id}?mainMenuNum=${obj.mainMenuNum.id}&boardMenuNum=${obj.boardMenuNum.id}&search=on`;
                     html += `
 						<li>
 							${divClass}

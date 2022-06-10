@@ -90,7 +90,7 @@
 					let result = dayjs(obj.createdDate).diff(today, "day", true);
 					let d_day = Math.floor(result);
 					const newBoardIcon = (d_day > -4) ?  '<span class="new_ico">새글</span>' : '';
-					const viewUri = `/board/view/${obj.id}?mainMenuNum=8&boardMenuNum=${obj.boardMenuNum.id}`;
+					const viewUri = `/board/view/${obj.id}?mainMenuNum=1&boardMenuNum=${obj.boardMenuNum.id}`;
 
 					html +=
 							`<li>
@@ -114,7 +114,7 @@
 				}
 
 				response.forEach((obj) => {
-					const viewUri = `/board/view/${obj.id}?mainMenuNum=6&boardMenuNum=${obj.boardMenuNum.id}`;
+					const viewUri = `/board/view/${obj.id}?mainMenuNum=2&boardMenuNum=${obj.boardMenuNum.id}`;
 					const boardImageSrc = (obj.repImage) ? `/api/image-files?savedFilename=${obj.saveNameImage}` : '/user/images/board/no_img.gif';
 					const profileImageSrc = (obj.member.profileImage) ? `/api/image-files?savedFilename=${obj.member.profileImage}` : '/user/images/board/default_profile.png';
 					html +=
@@ -143,7 +143,7 @@
 				}
 
 				response.forEach((obj) => {
-					const viewUri = `/board/view/${obj.id}?mainMenuNum=6&boardMenuNum=${obj.boardMenuNum.id}`;
+					const viewUri = `/board/view/${obj.id}?mainMenuNum=2&boardMenuNum=${obj.boardMenuNum.id}`;
 					const boardImageSrc = (obj.repImage) ? `/api/image-files?savedFilename=${obj.saveNameImage}` : '/user/images/board/no_img.gif';
 					const profileImageSrc = (obj.member.profileImage) ? `/api/image-files?savedFilename=${obj.member.profileImage}` : '/user/images/board/default_profile.png';
 
@@ -177,7 +177,7 @@
 					let result = dayjs(obj.createdDate).diff(today, "day", true);
 					let d_day = Math.floor(result);
 					const newBoardIcon = (d_day > -4) ? '<span class="new_ico">새글</span>' : '';
-					const viewUri = `/board/view/${obj.id}?mainMenuNum=2&boardMenuNum=${obj.boardMenuNum.id}`;
+					const viewUri = `/board/view/${obj.id}?mainMenuNum=1&boardMenuNum=${obj.boardMenuNum.id}`;
 					html +=
 							`<li>
 								<a href="${viewUri}">
@@ -205,7 +205,7 @@
 					let result = dayjs(obj.createdDate).diff(today, "day", true);
 					let d_day = Math.floor(result);
 					const newBoardIcon = (d_day > -4) ? '<span class="new_ico">새글</span>' : '';
-					const viewUri = `/board/view/${obj.id}?mainMenuNum=3&boardMenuNum=${obj.boardMenuNum.id}`;
+					const viewUri = `/board/view/${obj.id}?mainMenuNum=2&boardMenuNum=${obj.boardMenuNum.id}`;
 
 					html +=
 							`<li>
