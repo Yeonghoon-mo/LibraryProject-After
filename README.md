@@ -109,25 +109,19 @@
     <h4>3-1 : menu directory 내의 main, sub directory layer
     <h4>3-2 : resources directory 구조
     <td>
-      1-1
       <image src="https://user-images.githubusercontent.com/54883318/172999597-882bcefe-4a35-4455-a728-f309bb69c84c.png" style="width:450px;display:inline-block;"/>
-      1-2
       <image src="https://user-images.githubusercontent.com/54883318/172999601-7c30e150-5537-482f-82eb-b4f3b169c427.png" style="width:450px;display:inline-block;"/>
     </td>
   </tr>
   <tr>
     <td>
-      2-1
       <image src="https://user-images.githubusercontent.com/54883318/172999603-8717d233-e27b-477d-9ea9-c208cfdbd98f.png" style="width:450px;display:inline-block;"/>
-      2-2
       <image src="https://user-images.githubusercontent.com/54883318/172999606-10430483-0d59-4eb9-804e-22391b74206f.PNG" style="width:450px;display:inline-block;"/>
     </td>
   </tr>
    <tr>
     <td>
-      3-1
       <image src="https://user-images.githubusercontent.com/54883318/172999607-6773decf-fe14-4a83-926b-e21710b7721d.PNG" style="width:450px;display:inline-block;"/>
-      3-2
       <image src="https://user-images.githubusercontent.com/54883318/172999609-03e6b051-90cb-433e-a0bb-fe13d093f239.PNG" style="width:450px;display:inline-block;"/>
     </td>
   </tr>
