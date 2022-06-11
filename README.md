@@ -102,12 +102,6 @@
 -------------------------------
 <table>
   <tr>
-    <h4>1-1 : 전체 패키지 구조 <br>
-    <h4>1-2 : domain을 제외한 java directory <br>
-    <h4>2-1 : domain direcotry 내의 attach(파일), board(게시판), comment(댓글), entity(공통entity) directory <br>
-    <h4>2-2 : domain directory 내의 like(좋아요 & 싫어요), mail(메일), member(회원), menu(대메뉴, 소메뉴), regularmember(정회원) directory <br>
-    <h4>3-1 : menu directory 내의 main, sub directory layer
-    <h4>3-2 : resources directory 구조
     <td>
       <image src="https://user-images.githubusercontent.com/54883318/172999597-882bcefe-4a35-4455-a728-f309bb69c84c.png" style="width:450px;display:inline-block;"/>
       <image src="https://user-images.githubusercontent.com/54883318/172999601-7c30e150-5537-482f-82eb-b4f3b169c427.png" style="width:450px;display:inline-block;"/>
