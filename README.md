@@ -116,14 +116,14 @@
 - 게시글 수정, 삭제는 본인이 아닌 경우와 관리자 페이지에서 수정, 삭제가 아닌 경우는 불가능합니다. <br>
   (Service 단에서 현재 세션의 회원ID(PK)와 게시글 작성자ID(PK)를 비교. 단 회원 타입이 ADMIN일 경우 이 과정은 PASS)
   
-- 상단 레이아웃, 사용자 페이지 인덱스 알고리즘
+- **상단 레이아웃, 사용자 페이지 인덱스 알고리즘**
 ![상단 레이아웃](https://user-images.githubusercontent.com/54883318/173299071-3ca42316-66c2-42d0-b6ce-30f71bc5bff9.JPG)
 ![레이아웃, 인덱스 알고리즘](https://user-images.githubusercontent.com/54883318/173301984-a4be9a1b-b1f3-4677-b04c-f77f7559ebc9.JPG)
 
-- 로그인 여부와 상관없이 접근할 수 있는 게시판 페이지의 Function Flow 및 권한에 따른 True & False Service는 아래와 같습니다.
+- **로그인 여부와 상관없이 접근할 수 있는 게시판 페이지의 Function Flow 및 권한에 따른 True & False Service는 아래와 같습니다.**
 ![게시판 알고리즘](https://user-images.githubusercontent.com/54883318/173310176-d80a8e58-f372-4eba-8d08-5e698ce15562.JPG)
 
-- 관리자 페이지의 Function Flow
+- **관리자 페이지의 Function Flow**
 ![관리자 페이지 알고리즘](https://user-images.githubusercontent.com/54883318/173314634-56d9fefd-c970-428b-961d-64ca65c436c7.JPG)
 
 ## 8.프로젝트 결과물
