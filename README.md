@@ -201,3 +201,5 @@
      - 댓글 등록은 **로그인한 회원**만 가능하도록 구현.
      - 댓글 수정, 삭제는 Member Table의 해당 회원 PK값을 비교 후 같은 경우에만 가능.
         ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/54883318/174302964-944576f0-6760-4ddf-adb8-0f8a1403a32e.gif)
+
+- ##### 8) 다중 파일 업로드
