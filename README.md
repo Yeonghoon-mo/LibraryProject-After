@@ -141,3 +141,28 @@
     - 공지사항 최상위 노출은 사용자 페이지에서 게시글의 번호가 아닌, (공지)로 표시되며 최상위 리스트로 이동을 의미함.
     - 게시판관리 -> 공지사항 소메뉴가 아닌 다른 게시판 관리 소메뉴들은 회원 게시판의 수정, 삭제 & 댓글 수정, 삭제가 가능함.
        ![ezgif com-gif-maker](https://user-images.githubusercontent.com/54883318/174236125-f9c6e257-7e63-4892-85cb-891e821432e4.gif)
+       
+- ##### 4) 회원가입 페이지
+    - 회원가입은 일반회원, 정회원으로 이루어져있음.
+    - 정회원은 회원가입 후 관리자 승인이 있어야 로그인이 가능함.
+    - 회원 비밀번호는 Spring Security PasswordEncoder로 랜덤 문자열이 들어감.
+    - 이메일 인증번호는 Service단에서 6자리의 난수를 생성하여 인증번호를 생성 후 DB에 저장. DB에 저장된 값과 입력값 비교.
+        ![ezgif com-gif-maker](https://user-images.githubusercontent.com/54883318/174238736-ddcd1958-7acc-4a15-8bd2-9740d38636c0.gif)
+        ![비밀번호 PasswordEncoder](https://user-images.githubusercontent.com/54883318/174239015-8c8b55f0-b886-44a1-8c15-9aca0d57713b.JPG)
+
+- ##### 5) 로그인
+    - **5-1) 비밀번호 찾기**
+    - 회원가입한 이메일로 인증번호를 보내고, 이름을 확인하여 본인 여부 확인 후 비밀번호 변경.
+        ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/54883318/174240959-e9d73d99-908a-4054-8007-cba6803f4788.gif)
+        
+    - **5-2) 로그인**
+    - 일반회원, 정회원 로그인 시 마이페이지 필드 항목들이 다름.
+    - 마이페이지에서 프로필 이미지 수정 시, 외래키가 걸려있는 Entity도 Update.
+    - 쿠키를 이용하여 아이디 저장 기능 구현 (최대 1주일)
+        ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/54883318/174242658-2dc871f5-a8ce-486d-af9d-5c1464817d3a.gif)
+        
+    - **5-3) 아이디 저장**
+    - 사용자가 '아이디 저장' 버튼을 체크하고 로그인을 했을 경우, 'key'라는 쿠키 생성 및 생성 쿠키에 loginId가 값으로 저장된다.
+    - 쿠키의 보관 일자는 7일로 지정 하였으므로, 7일 후에는 쿠키 삭제
+        ![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/54883318/174244975-1e201149-74df-4f00-a5ec-c51ed60d3e8d.gif)
+
