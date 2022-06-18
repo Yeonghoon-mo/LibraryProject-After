@@ -155,9 +155,9 @@
     - 회원가입한 이메일로 인증번호를 보내고, 이름을 확인하여 본인 여부 확인 후 비밀번호 변경. <br>
         ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/54883318/174240959-e9d73d99-908a-4054-8007-cba6803f4788.gif)
         
-    - **5-2) 로그인**
+    - **5-2) 로그인 & 회원 정보 수정(마이페이지)**
     - 일반회원, 정회원 로그인 시 마이페이지 필드 항목들이 다름.
-    - 마이페이지에서 프로필 이미지 수정 시, 외래키가 걸려있는 Entity도 Update.
+    - 마이페이지에서 회원 정보 수정 시, 외래키가 걸려있는 Entity도 Update.
     - 쿠키를 이용하여 아이디 저장 기능 구현 (최대 1주일) <br>
         ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/54883318/174242658-2dc871f5-a8ce-486d-af9d-5c1464817d3a.gif)
         
