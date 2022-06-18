@@ -202,4 +202,34 @@
      - 댓글 수정, 삭제는 Member Table의 해당 회원 PK값을 비교 후 같은 경우에만 가능.
         ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/54883318/174302964-944576f0-6760-4ddf-adb8-0f8a1403a32e.gif)
 
-- ##### 8) 다중 파일 업로드
+- ##### 8) 파일 업로드
+     - **8-1) 파일 업로드 경로**
+     - OS별로 다른 파일 업로드 Path를 설정<br>
+        ![파일 업로드 경로](https://user-images.githubusercontent.com/54883318/174427472-632fa430-432f-48d6-9137-0a4851897892.JPG)
+      
+     - **8-2) 저장될 파일명** 
+     - java.util.uuid 클래스를 사용하여 저장될 파일명이 **겹치지 않게** 생성되도록 하였다.<br>
+        ![파일 업로드 saveName](https://user-images.githubusercontent.com/54883318/174427801-0f5861e4-9c6a-48b4-acc7-87f109e8ce88.JPG)
+        
+     - **8-3) 게시글 대표 이미지(썸네일), 첨부파일 구분**
+     - 대표 이미지 사진도 다운로드가 가능하며, 다운로드 시 사용자에게 보여줄 파일 이름(originalname)과 저장될 파일 이름(savename)은 **게시판 테이블** 안에 존재하고,
+       **첨부파일은 tb_attach 테이블 내**에 파일 정보가 담겨있다.<br>
+        ![파일 저장_1](https://user-images.githubusercontent.com/54883318/174428625-e3834b7e-b447-43b4-9176-f96fbec4145a.JPG)
+        
+     - **8-4) 다중 파일 업로드**
+     - 1. 파일 업로드는 Back-End 단에서 파라미터가 Null일 경우, 비어있는 파일 리스트를 만든다. (NullPointException 방지) <br>
+        ![파일 업로드_1](https://user-images.githubusercontent.com/54883318/174428961-35670f6f-b640-4c37-b8f9-399355273bba.JPG)
+     - 2. 파라미터로 넘어온 파일의 갯수만큼 for문을 돌고, for문 안에서 **'저장할 파일명.파일 확장자'** 를 String saveName 변수 안에 넣는다.
+     - 3. 새로운 파일 객체를 만들어 업로드 경로, saveName를 파라미터로 넘겨서 file.transferTo 메서드로 자바의 파일 객체로 변환한다.
+     - 4. Excepiton이 생길 경우, CustomException(Back-End)으로 파일 업로드에 실패하였다는 메세지를 사용자에게 보여준다(Front-End)<br>
+        ![파일 업로드_2](https://user-images.githubusercontent.com/54883318/174429310-b7d27511-7e80-4f00-b667-017c505bcdfe.JPG)
+
+     - 다중 파일 업로드는 tb_attach 테이블 내에 foreign key로 걸려있는 **boardId(게시글 번호)를 기준으로 Count**한다. <br>
+        ![tb_attach 테이블 구조](https://user-images.githubusercontent.com/54883318/174428736-5c4f2078-d090-4ccc-8033-b9cf439a2714.JPG)
+        
+     - **8-5) 파일 조회, 파일 삭제**
+     - 파일 조회와 삭제는 공통JS파일 안에 파일 시퀀스 처리용, 파일 삭제 처리용 **익명함수**를 두어 관리한다.
+        ![파일 조회, 삭제_1](https://user-images.githubusercontent.com/54883318/174429357-b8c65dbd-c330-41d1-b32c-296d10c186cc.JPG)
+     - 1. 기존 파일 정보를 불러올 때마다(fileList.length를 불러올 때마다) 파일 시퀀스 처리용 익명함수 내에 있는 up메서드를 불러오며, **각 파일마다 시퀀스**를 준다. 파일 시퀀스를            통하여 파일 번호를 확인 후 file에 id값을 준다.
+     - 2. 파일 삭제는 **파일의 ID가 있을 경우**, 파일의 ID를 가져온 후 해당하는 파일 ID를 삭제한 후, 파일에 있는 data-value를 조회하여 해당하는 data-value를 remove하여 **사용            자에게 보여지는** 리스트에서도 삭제한다. <br>
+        ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/54883318/174430490-04991f90-413b-435e-80c4-2c274c579381.gif)
