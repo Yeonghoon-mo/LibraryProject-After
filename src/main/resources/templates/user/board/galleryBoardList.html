@@ -72,6 +72,7 @@
 			titleSelect();
 			setQueryStringParams();
 			addEnterSearchEvent();
+			boardWriteQueryString();
 			findPaginationAll();
 		}
 
@@ -86,6 +87,25 @@
 					form[key].value = value;
 				}
 			})
+		}
+
+		/** 게시글 작성 버튼 쿼리스트링 값 전달하는 함수 */
+		function boardWriteQueryString() {
+			let mainMenuNum = new URLSearchParams(location.search).get('mainMenuNum');
+			const loginMember = ([[ ${session.loginMember} ]]) ? [[ ${session.loginMember} ]] : undefined;
+			const boardMenuNum = new URLSearchParams(location.search).get('boardMenuNum');
+
+			// 공지사항 게시판일 때
+			if ( !loginMember || boardMenuNum === '1' ) {
+				return false;
+			}
+			// 정회원 게시판일 때
+			if (boardMenuNum === '3' && loginMember.type !== 'REGULAR') {
+				return false;
+			}
+			let writeUri = '/board/write?boardMenuNum=' + boardMenuNum + '&mainMenuNum=' + mainMenuNum;
+			let html = `<a href="${writeUri}" class="btns btn_st1"><span>글쓰기</span></a>`;
+			findById('buttonSet').innerHTML = html;
 		}
 
 		/** 게시글 리스트 출력(Paging) */
@@ -105,10 +125,6 @@
 				keyword: form.keyword.value,
 				orderByName: form.orderByName.value
 			}
-
-			// 게시글 작성 버튼 URI
-			const writeUri = '/board/write?boardMenuNum=' + boardMenuNum + '&mainMenuNum=' + mainMenuNum;
-			findById('buttonSet').innerHTML = `<a href="${writeUri}" class="btns btn_st1"><span>글쓰기</span></a>`;
 
 			const queryString = new URLSearchParams(params).toString();
 			const replaceUri = location.pathname + '?' + queryString;

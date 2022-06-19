@@ -244,6 +244,7 @@
 						</div>
 					</li>`;
 
+				console.log(fileSeq);
 				$('#files').append(fileHtml);
 			}
 
@@ -253,6 +254,7 @@
 					elem.setAttribute('onclick', 'removeFile(this);');
 					document.querySelectorAll('input[name="attachFiles"]')[0].setAttribute('onchange', 'changeFileName(this)');
 					removeFileIds.add(fileId);
+					console.log(fileId);
 				}
 
 				const li = elem.closest('li')

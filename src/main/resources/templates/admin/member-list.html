@@ -125,7 +125,7 @@
                 let num = response.totalElements - ((params.page) * params.size);
                 const memberType = { REGULAR : '정회원', GENERAL : '일반회원'};
                 response.content.forEach((obj) => {
-                    const viewUri = `/admin/member-view/${obj.id}` + '?' + queryString;
+                    const viewUri = `/manager/member-view/${obj.id}` + '?' + queryString;
                     html += `
 						<tr>
 							<td>${num--}</td>
